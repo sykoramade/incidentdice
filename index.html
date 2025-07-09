@@ -31,34 +31,41 @@
         .title {
             font-size: 2.5rem;
             font-weight: 700;
-            margin-bottom: 30px;
+            margin-bottom: 15px;
             color: #ffffff;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            color: #b0b0b0;
+            font-weight: 500;
         }
         
         .main-card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border-radius: 24px;
-            padding: 40px;
+            padding: 30px;
             margin-bottom: 30px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
         
         .description {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
+            font-size: 1.0rem;
+            margin-bottom: 25px;
             color: #b0b0b0;
-            line-height: 1.6;
+            line-height: 1.5;
         }
         
         .roll-section {
-            margin-bottom: 40px;
+            margin-bottom: 35px;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 30px;
+            gap: 20px;
             flex-wrap: wrap;
         }
         
@@ -88,18 +95,18 @@
         .checkbox-container {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             color: #b0b0b0;
-            font-size: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 12px 20px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
         
         .checkbox-container input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             accent-color: #4CAF50;
         }
         
@@ -107,7 +114,7 @@
             display: flex;
             justify-content: center;
             gap: 50px;
-            margin: 50px 0;
+            margin: 40px 0;
             flex-wrap: wrap;
         }
         
@@ -115,7 +122,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
         }
         
         .die {
@@ -276,18 +282,14 @@
 <body>
     <div class="container">
         <h1 class="title">Incident Trauma Simulator</h1>
+        <div class="subtitle">Roll the dice, cause some chaos 🔥</div>
         
         <div class="main-card">
-            <div class="description">
-                Roll the dice, cause some chaos 🔥<br>
-                First die determines severity, second the issue. Additionally a third die can be selected to add an incident history - is this a new, emerging issue or one that has been going on for weeks?
-            </div>
-            
             <div class="roll-section">
                 <button class="roll-button" onclick="rollDice()">Roll for Sadness</button>
                 <div class="checkbox-container">
                     <input type="checkbox" id="historyCheckbox" onchange="toggleThirdDie()">
-                    <label for="historyCheckbox">Incident history</label>
+                    <label for="historyCheckbox">History</label>
                 </div>
             </div>
             
@@ -296,19 +298,16 @@
                     <div class="die" id="die1">
                         <div class="die-dots" id="dots1"></div>
                     </div>
-                    <div class="die-label">Severity (1-3)</div>
                 </div>
                 <div class="die-wrapper">
                     <div class="die" id="die2">
                         <div class="die-dots" id="dots2"></div>
                     </div>
-                    <div class="die-label">Issue (1-6)</div>
                 </div>
                 <div class="die-wrapper">
                     <div class="die third-die" id="die3">
                         <div class="die-dots" id="dots3"></div>
                     </div>
-                    <div class="die-label">History (1-6)</div>
                 </div>
             </div>
             
@@ -318,11 +317,11 @@
                     <p id="severityText">Click roll to begin</p>
                 </div>
                 <div class="result-card" id="issueCard">
-                    <h3>Issue & Description</h3>
+                    <h3>Incident</h3>
                     <p id="issueText">Click roll to begin</p>
                 </div>
                 <div class="result-card" id="historyCard">
-                    <h3>Incident History</h3>
+                    <h3>History</h3>
                     <p id="historyText">Enable history and roll to begin</p>
                 </div>
             </div>
