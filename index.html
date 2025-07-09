@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Klang Live Trauma Simulator</title>
+    <title>Incident Trauma Simulator</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         
         * {
             margin: 0;
@@ -14,46 +14,43 @@
         }
         
         body {
-            font-family: 'Orbitron', monospace;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
             min-height: 100vh;
-            color: #e94560;
+            color: #ffffff;
             overflow-x: hidden;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 40px 20px;
             text-align: center;
         }
         
         .title {
-            font-size: 3rem;
-            font-weight: 900;
+            font-size: 2.5rem;
+            font-weight: 700;
             margin-bottom: 30px;
-            text-shadow: 0 0 20px #e94560;
-            background: linear-gradient(45deg, #e94560, #f39c12);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: glow 2s ease-in-out infinite alternate;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
         
-        @keyframes glow {
-            from { text-shadow: 0 0 20px #e94560; }
-            to { text-shadow: 0 0 30px #e94560, 0 0 40px #e94560; }
+        .main-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
         
         .description {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-bottom: 30px;
-            color: #0ff;
-            background: rgba(0, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            border: 2px solid #0ff;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            color: #b0b0b0;
+            line-height: 1.6;
         }
         
         .roll-section {
@@ -61,27 +58,27 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
+            gap: 30px;
             flex-wrap: wrap;
         }
         
         .roll-button {
-            background: linear-gradient(45deg, #e94560, #f39c12);
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
             color: white;
             border: none;
-            padding: 15px 40px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            border-radius: 10px;
+            padding: 16px 32px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 16px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
-            font-family: 'Orbitron', monospace;
+            box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3);
+            font-family: 'Inter', sans-serif;
         }
         
         .roll-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.6);
+            box-shadow: 0 6px 25px rgba(76, 175, 80, 0.4);
         }
         
         .roll-button:active {
@@ -91,44 +88,56 @@
         .checkbox-container {
             display: flex;
             align-items: center;
-            gap: 10px;
-            color: #0ff;
+            gap: 12px;
+            color: #b0b0b0;
             font-size: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .checkbox-container input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            accent-color: #e94560;
+            width: 18px;
+            height: 18px;
+            accent-color: #4CAF50;
         }
         
         .dice-container {
             display: flex;
             justify-content: center;
-            gap: 40px;
-            margin: 40px 0;
+            gap: 50px;
+            margin: 50px 0;
             flex-wrap: wrap;
         }
         
+        .die-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
         .die {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(45deg, #333, #555);
-            border: 3px solid #0ff;
-            border-radius: 15px;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            font-weight: 700;
-            color: #fff;
             position: relative;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
             transition: all 0.3s ease;
         }
         
         .die.rolling {
-            animation: spin 2s linear infinite;
+            animation: none;
+        }
+        
+        .die.settling {
+            animation: settle 0.5s ease-out;
         }
         
         .die.third-die {
@@ -142,17 +151,37 @@
             transform: scale(1);
         }
         
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes settle {
+            0% { transform: scale(1.2) rotateX(10deg); }
+            50% { transform: scale(0.9) rotateX(-5deg); }
+            100% { transform: scale(1) rotateX(0deg); }
+        }
+        
+        .die-dots {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 8px;
+            width: 60px;
+            height: 60px;
+        }
+        
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: #333;
+            border-radius: 50%;
+            opacity: 0;
+        }
+        
+        .dot.active {
+            opacity: 1;
         }
         
         .die-label {
-            position: absolute;
-            bottom: -30px;
-            font-size: 0.8rem;
-            color: #0ff;
-            white-space: nowrap;
+            font-size: 0.9rem;
+            color: #888;
+            font-weight: 500;
         }
         
         .results-container {
@@ -164,16 +193,17 @@
         }
         
         .result-card {
-            background: rgba(0, 255, 255, 0.1);
-            border: 2px solid #0ff;
-            border-radius: 10px;
-            padding: 20px;
-            min-width: 300px;
-            max-width: 350px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 24px;
+            min-width: 280px;
+            max-width: 320px;
             opacity: 0;
             transform: translateY(20px);
-            transition: all 0.5s ease;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+            transition: all 0.6s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
         
         .result-card.visible {
@@ -182,14 +212,16 @@
         }
         
         .result-card h3 {
-            color: #e94560;
-            margin-bottom: 10px;
-            font-size: 1.3rem;
+            color: #ffffff;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
         }
         
         .result-card p {
-            color: #0ff;
-            line-height: 1.4;
+            color: #b0b0b0;
+            line-height: 1.5;
+            font-size: 0.95rem;
         }
         
         .footer {
@@ -198,7 +230,8 @@
             left: 50%;
             transform: translateX(-50%);
             color: #666;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
         
         @media (max-width: 768px) {
@@ -206,14 +239,27 @@
                 font-size: 2rem;
             }
             
+            .main-card {
+                padding: 30px 20px;
+            }
+            
             .dice-container {
-                gap: 20px;
+                gap: 30px;
             }
             
             .die {
-                width: 60px;
-                height: 60px;
-                font-size: 1.5rem;
+                width: 80px;
+                height: 80px;
+            }
+            
+            .die-dots {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .dot {
+                width: 6px;
+                height: 6px;
             }
             
             .results-container {
@@ -222,57 +268,68 @@
             }
             
             .result-card {
-                min-width: 280px;
+                min-width: 260px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="title">The Klang Live Trauma Simulator</h1>
+        <h1 class="title">Incident Trauma Simulator</h1>
         
-        <div class="description">
-            Roll the dice, cause some chaos 🔥<br>
-            First die determines severity, second the issue. Additionally a third die can be selected to add an incident history - is this a new, emerging issue or one that has been going on for weeks?
-        </div>
-        
-        <div class="roll-section">
-            <button class="roll-button" onclick="rollDice()">Roll</button>
-            <div class="checkbox-container">
-                <input type="checkbox" id="historyCheckbox" onchange="toggleThirdDie()">
-                <label for="historyCheckbox">Incident history</label>
+        <div class="main-card">
+            <div class="description">
+                Roll the dice, cause some chaos 🔥<br>
+                First die determines severity, second the issue. Additionally a third die can be selected to add an incident history - is this a new, emerging issue or one that has been going on for weeks?
             </div>
-        </div>
-        
-        <div class="dice-container">
-            <div class="die" id="die1">
-                <div class="die-label">Severity (1-3)</div>
+            
+            <div class="roll-section">
+                <button class="roll-button" onclick="rollDice()">Roll for Sadness</button>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="historyCheckbox" onchange="toggleThirdDie()">
+                    <label for="historyCheckbox">Incident history</label>
+                </div>
             </div>
-            <div class="die" id="die2">
-                <div class="die-label">Issue (1-6)</div>
+            
+            <div class="dice-container">
+                <div class="die-wrapper">
+                    <div class="die" id="die1">
+                        <div class="die-dots" id="dots1"></div>
+                    </div>
+                    <div class="die-label">Severity (1-3)</div>
+                </div>
+                <div class="die-wrapper">
+                    <div class="die" id="die2">
+                        <div class="die-dots" id="dots2"></div>
+                    </div>
+                    <div class="die-label">Issue (1-6)</div>
+                </div>
+                <div class="die-wrapper">
+                    <div class="die third-die" id="die3">
+                        <div class="die-dots" id="dots3"></div>
+                    </div>
+                    <div class="die-label">History (1-6)</div>
+                </div>
             </div>
-            <div class="die third-die" id="die3">
-                <div class="die-label">History (1-6)</div>
-            </div>
-        </div>
-        
-        <div class="results-container">
-            <div class="result-card" id="severityCard">
-                <h3>Severity</h3>
-                <p id="severityText">Click roll to begin</p>
-            </div>
-            <div class="result-card" id="issueCard">
-                <h3>Issue & Description</h3>
-                <p id="issueText">Click roll to begin</p>
-            </div>
-            <div class="result-card" id="historyCard">
-                <h3>Incident History</h3>
-                <p id="historyText">Enable history and roll to begin</p>
+            
+            <div class="results-container">
+                <div class="result-card" id="severityCard">
+                    <h3>Severity</h3>
+                    <p id="severityText">Click roll to begin</p>
+                </div>
+                <div class="result-card" id="issueCard">
+                    <h3>Issue & Description</h3>
+                    <p id="issueText">Click roll to begin</p>
+                </div>
+                <div class="result-card" id="historyCard">
+                    <h3>Incident History</h3>
+                    <p id="historyText">Enable history and roll to begin</p>
+                </div>
             </div>
         </div>
     </div>
     
-    <div class="footer">sykoramade 2025</div>
+    <div class="footer">AI slop by sykoramade</div>
     
     <script>
         // Sample CSV data (you'll replace this with your actual CSV loading logic)
@@ -300,6 +357,16 @@
             ]
         };
         
+        // Die face patterns
+        const diePatterns = {
+            1: [4], // center dot
+            2: [0, 8], // diagonal
+            3: [0, 4, 8], // diagonal + center
+            4: [0, 2, 6, 8], // corners
+            5: [0, 2, 4, 6, 8], // corners + center
+            6: [0, 2, 3, 5, 6, 8] // two columns
+        };
+        
         // Audio context for sound effects
         let audioContext;
         
@@ -309,7 +376,7 @@
             }
         }
         
-        function playTone(frequency, duration, type = 'sine') {
+        function playTone(frequency, duration, type = 'sine', volume = 0.1) {
             initAudio();
             const oscillator = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
@@ -320,7 +387,7 @@
             oscillator.frequency.value = frequency;
             oscillator.type = type;
             
-            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
             gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
             
             oscillator.start(audioContext.currentTime);
@@ -328,27 +395,66 @@
         }
         
         function playDreadfulStinger() {
-            // Dreadful stinger sound
-            playTone(220, 0.1, 'sawtooth');
-            setTimeout(() => playTone(180, 0.1, 'sawtooth'), 50);
-            setTimeout(() => playTone(150, 0.2, 'sawtooth'), 100);
+            // Dreadful stinger sound - more dramatic
+            playTone(180, 0.15, 'sawtooth', 0.15);
+            setTimeout(() => playTone(140, 0.15, 'sawtooth', 0.12), 75);
+            setTimeout(() => playTone(100, 0.3, 'sawtooth', 0.1), 150);
         }
         
         function playRollingSound() {
-            // Rolling dice sound effect
+            // Rolling dice sound effect - lighter, more realistic
             const rollDuration = 2000;
             const interval = setInterval(() => {
-                playTone(Math.random() * 200 + 100, 0.05, 'square');
-            }, 50);
+                playTone(Math.random() * 150 + 200, 0.03, 'triangle', 0.05);
+            }, 60);
             
             setTimeout(() => clearInterval(interval), rollDuration);
         }
         
-        function playPensiveSound(keyLevel) {
-            // Escalating pensive sounds
-            const baseFreq = 440;
-            const frequency = baseFreq * Math.pow(1.26, keyLevel); // Each level is a minor third higher
-            playTone(frequency, 0.3, 'sine');
+        function playForebodingDing(keyLevel) {
+            // Sci-fi foreboding ding sounds
+            const frequencies = [220, 277, 349]; // A3, C#4, F4 - minor chord progression
+            const baseFreq = frequencies[keyLevel] || 440;
+            
+            // Create a sci-fi ding with harmonic
+            playTone(baseFreq, 0.8, 'sine', 0.08);
+            setTimeout(() => playTone(baseFreq * 2, 0.6, 'sine', 0.04), 100);
+            setTimeout(() => playTone(baseFreq * 0.5, 1.2, 'sine', 0.05), 200);
+        }
+        
+        function createDieDots(containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            for (let i = 0; i < 9; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                container.appendChild(dot);
+            }
+        }
+        
+        function updateDieFace(containerId, number) {
+            const container = document.getElementById(containerId);
+            const dots = container.querySelectorAll('.dot');
+            
+            // Reset all dots
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Show dots for the number
+            if (diePatterns[number]) {
+                diePatterns[number].forEach(index => {
+                    dots[index].classList.add('active');
+                });
+            }
+        }
+        
+        function animateDieRoll(containerId, maxValue, duration) {
+            const interval = setInterval(() => {
+                const randomValue = Math.floor(Math.random() * maxValue) + 1;
+                updateDieFace(containerId, randomValue);
+            }, 100);
+            
+            setTimeout(() => clearInterval(interval), duration);
         }
         
         function toggleThirdDie() {
@@ -381,6 +487,11 @@
             issueCard.classList.remove('visible');
             historyCard.classList.remove('visible');
             
+            // Reset die classes
+            die1.classList.remove('settling');
+            die2.classList.remove('settling');
+            die3.classList.remove('settling');
+            
             // Play dreadful stinger
             playDreadfulStinger();
             
@@ -391,50 +502,69 @@
                 die3.classList.add('rolling');
             }
             
+            // Start visual rolling animation
+            animateDieRoll('dots1', 3, 2000);
+            animateDieRoll('dots2', 6, 3000);
+            if (checkbox.checked) {
+                animateDieRoll('dots3', 6, 4000);
+            }
+            
             // Play rolling sound
             setTimeout(playRollingSound, 100);
             
             // Stop first die after 2 seconds
             setTimeout(() => {
                 die1.classList.remove('rolling');
+                die1.classList.add('settling');
                 const roll1 = Math.floor(Math.random() * 3) + 1;
-                die1.textContent = roll1;
+                updateDieFace('dots1', roll1);
                 
                 // Show severity result
                 document.getElementById('severityText').textContent = csvData.severity[roll1 - 1];
                 severityCard.classList.add('visible');
-                playPensiveSound(0);
+                playForebodingDing(0);
             }, 2000);
             
             // Stop second die after 3 seconds
             setTimeout(() => {
                 die2.classList.remove('rolling');
+                die2.classList.add('settling');
                 const roll2 = Math.floor(Math.random() * 6) + 1;
-                die2.textContent = roll2;
+                updateDieFace('dots2', roll2);
                 
                 // Show issue result
                 document.getElementById('issueText').textContent = csvData.issues[roll2 - 1];
                 issueCard.classList.add('visible');
-                playPensiveSound(1);
+                playForebodingDing(1);
             }, 3000);
             
             // Stop third die after 4 seconds (if enabled)
             if (checkbox.checked) {
                 setTimeout(() => {
                     die3.classList.remove('rolling');
+                    die3.classList.add('settling');
                     const roll3 = Math.floor(Math.random() * 6) + 1;
-                    die3.textContent = roll3;
+                    updateDieFace('dots3', roll3);
                     
                     // Show history result
                     document.getElementById('historyText').textContent = csvData.history[roll3 - 1];
                     historyCard.classList.add('visible');
-                    playPensiveSound(2);
+                    playForebodingDing(2);
                 }, 4000);
             }
         }
         
-        // Initialize third die visibility
+        // Initialize dice and third die visibility
         document.addEventListener('DOMContentLoaded', () => {
+            createDieDots('dots1');
+            createDieDots('dots2');
+            createDieDots('dots3');
+            
+            // Show initial die faces
+            updateDieFace('dots1', 1);
+            updateDieFace('dots2', 1);
+            updateDieFace('dots3', 1);
+            
             toggleThirdDie();
         });
     </script>
