@@ -1,0 +1,17 @@
+Severity,Issue,Description,History
+S1,Seedlings are dying,Durability was set too high on items seedlings use to live.  This items are breaking down faster than seedlings can repair and it's causing premature death,We were alerted through a player just now.
+S0,"Players kicked, cannot log in",There is an issue emerging that more players are unable to log into the game and are getting kicked out. ,This issue has been reported and existing for over a week. 
+S2,"Players unable to click seedlings, no chat",Players are reporting that they lost various interaction ability with seedlings.  They cannot click or chat with them.,This issue is emerging as we received multiple reports. 
+S0,PII exposed,We're getting word that PII(personal identifiable info) has been exposed.  ,This has been going on for a few hours. 
+S0,Seedlings mass extinction event,We are getting reports of Seedlings dying. We can confirm this in our dashboards and see a significant spike in Seedling need related deaths,A hacker is claiming responsibility for these issues.
+S0,SC/Pollen is wiped,Player's seedcoin and pollen is wiped and shows 0 or grossly incorrect balances,
+S0,Free Seedlings!,Player's figured out a way to get infinite free seedlings,
+S1,Infinite Seedcoin,Players discover a way to get infinite seedcoin,
+S1,Players cannot enter their societies,"Players can log into the game, but cannot enter their societies",
+S2,Chat/Social Services is offline,Players are unable to chat with each other in-game,
+S2,Global Market Trading Broken,Players cannot trade with each other on the global market,
+S2,No New Seedlings,Players cannot spawn new seedlings. They remain in their inventories,
+,Stolen or hacked account,"Players reporting their accounts have been Stolen, can't login, but their discord friends can see the accounts are active",
+,Seedcoin issue,"Players build a structures and ordered materials from another society, the seedcoin is gone but the materials never arrive",
+,Edgelord woes,A player enters the game and is disruptive/abusive in the in-game discord - get's banned but keeps coming back with new accounts ,
+,Seedling disappeared,Players login to the game but have lost access to their seedlings ,
