@@ -51,6 +51,7 @@
             margin-bottom: 30px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         
         .description {
@@ -92,6 +93,12 @@
             transform: translateY(0);
         }
         
+        .controls-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
         .checkbox-container {
             display: flex;
             align-items: center;
@@ -102,6 +109,8 @@
             padding: 8px 12px;
             border-radius: 8px;
             border: 1px solid rgba(255, 255, 255, 0.08);
+            height: 36px;
+            min-width: 100px;
         }
         
         .checkbox-container input[type="checkbox"] {
@@ -144,6 +153,17 @@
         
         .die.settling {
             animation: settle 0.5s ease-out;
+        }
+        
+        .die.first-die {
+            opacity: 1;
+            transform: scale(1);
+            transition: all 0.5s ease;
+        }
+        
+        .die.first-die.hidden {
+            opacity: 0;
+            transform: scale(0);
         }
         
         .die.third-die {
@@ -207,14 +227,22 @@
             min-width: 280px;
             max-width: 320px;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(20px) scale(0.9);
             transition: all 0.6s ease;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
         
         .result-card.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
+        }
+        
+        .result-card.hidden {
+            opacity: 0;
+            transform: translateY(-20px) scale(0.9);
+            pointer-events: none;
+            position: absolute;
+            left: -9999px;
         }
         
         .result-card h3 {
@@ -287,15 +315,21 @@
         <div class="main-card">
             <div class="roll-section">
                 <button class="roll-button" onclick="rollDice()">Roll for Sadness</button>
-                <div class="checkbox-container">
-                    <input type="checkbox" id="historyCheckbox" onchange="toggleThirdDie()">
-                    <label for="historyCheckbox">History</label>
+                <div class="controls-stack">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="severityCheckbox" checked onchange="toggleSeverityDie()">
+                        <label for="severityCheckbox">Severity</label>
+                    </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="historyCheckbox" onchange="toggleThirdDie()">
+                        <label for="historyCheckbox">History</label>
+                    </div>
                 </div>
             </div>
             
             <div class="dice-container">
                 <div class="die-wrapper">
-                    <div class="die" id="die1">
+                    <div class="die first-die" id="die1">
                         <div class="die-dots" id="dots1"></div>
                     </div>
                 </div>
@@ -456,18 +490,47 @@
             setTimeout(() => clearInterval(interval), duration);
         }
         
+        function toggleSeverityDie() {
+            const firstDie = document.getElementById('die1');
+            const checkbox = document.getElementById('severityCheckbox');
+            
+            if (checkbox.checked) {
+                firstDie.classList.remove('hidden');
+            } else {
+                firstDie.classList.add('hidden');
+            }
+        }
+        
         function toggleThirdDie() {
             const thirdDie = document.getElementById('die3');
-            const historyCard = document.getElementById('historyCard');
             const checkbox = document.getElementById('historyCheckbox');
             
             if (checkbox.checked) {
                 thirdDie.classList.add('visible');
-                historyCard.style.display = 'block';
             } else {
                 thirdDie.classList.remove('visible');
-                historyCard.style.display = 'none';
-                historyCard.classList.remove('visible');
+            }
+        }
+        
+        function updateCardLayout() {
+            const severityCheckbox = document.getElementById('severityCheckbox');
+            const historyCheckbox = document.getElementById('historyCheckbox');
+            const severityCard = document.getElementById('severityCard');
+            const historyCard = document.getElementById('historyCard');
+            
+            // Only show/hide cards based on checkbox states and current results
+            if (severityCheckbox.checked) {
+                severityCard.classList.remove('hidden');
+                severityCard.style.visibility = 'visible';
+            } else {
+                severityCard.classList.add('hidden');
+            }
+            
+            if (historyCheckbox.checked) {
+                historyCard.classList.remove('hidden');
+                historyCard.style.visibility = 'visible';
+            } else {
+                historyCard.classList.add('hidden');
             }
         }
         
@@ -475,16 +538,38 @@
             const die1 = document.getElementById('die1');
             const die2 = document.getElementById('die2');
             const die3 = document.getElementById('die3');
-            const checkbox = document.getElementById('historyCheckbox');
+            const severityCheckbox = document.getElementById('severityCheckbox');
+            const historyCheckbox = document.getElementById('historyCheckbox');
             
             const severityCard = document.getElementById('severityCard');
             const issueCard = document.getElementById('issueCard');
             const historyCard = document.getElementById('historyCard');
             
-            // Reset results
+            // Immediately hide all cards from their current positions
             severityCard.classList.remove('visible');
             issueCard.classList.remove('visible');
             historyCard.classList.remove('visible');
+            
+            // Wait for cards to fully disappear, then gracefully rearrange layout
+            setTimeout(() => {
+                if (severityCheckbox.checked) {
+                    severityCard.classList.remove('hidden');
+                    severityCard.style.visibility = 'visible';
+                } else {
+                    severityCard.classList.add('hidden');
+                }
+                
+                // Issue card is always shown
+                issueCard.classList.remove('hidden');
+                issueCard.style.visibility = 'visible';
+                
+                if (historyCheckbox.checked) {
+                    historyCard.classList.remove('hidden');
+                    historyCard.style.visibility = 'visible';
+                } else {
+                    historyCard.classList.add('hidden');
+                }
+            }, 600);
             
             // Reset die classes
             die1.classList.remove('settling');
@@ -494,35 +579,35 @@
             // Play dreadful stinger
             playDreadfulStinger();
             
-            // Start rolling animation
-            die1.classList.add('rolling');
-            die2.classList.add('rolling');
-            if (checkbox.checked) {
-                die3.classList.add('rolling');
+            // Start rolling animation for enabled dice
+            if (severityCheckbox.checked) {
+                die1.classList.add('rolling');
+                animateDieRoll('dots1', 3, 2000);
             }
-            
-            // Start visual rolling animation
-            animateDieRoll('dots1', 3, 2000);
+            die2.classList.add('rolling');
             animateDieRoll('dots2', 6, 3000);
-            if (checkbox.checked) {
+            if (historyCheckbox.checked) {
+                die3.classList.add('rolling');
                 animateDieRoll('dots3', 6, 4000);
             }
             
             // Play rolling sound
             setTimeout(playRollingSound, 100);
             
-            // Stop first die after 2 seconds
-            setTimeout(() => {
-                die1.classList.remove('rolling');
-                die1.classList.add('settling');
-                const roll1 = Math.floor(Math.random() * 3) + 1;
-                updateDieFace('dots1', roll1);
-                
-                // Show severity result
-                document.getElementById('severityText').textContent = csvData.severity[roll1 - 1];
-                severityCard.classList.add('visible');
-                playForebodingDing(0);
-            }, 2000);
+            // Stop first die after 2 seconds (if enabled)
+            if (severityCheckbox.checked) {
+                setTimeout(() => {
+                    die1.classList.remove('rolling');
+                    die1.classList.add('settling');
+                    const roll1 = Math.floor(Math.random() * 3) + 1;
+                    updateDieFace('dots1', roll1);
+                    
+                    // Show severity result
+                    document.getElementById('severityText').textContent = csvData.severity[roll1 - 1];
+                    severityCard.classList.add('visible');
+                    playForebodingDing(0);
+                }, 2000);
+            }
             
             // Stop second die after 3 seconds
             setTimeout(() => {
@@ -538,7 +623,7 @@
             }, 3000);
             
             // Stop third die after 4 seconds (if enabled)
-            if (checkbox.checked) {
+            if (historyCheckbox.checked) {
                 setTimeout(() => {
                     die3.classList.remove('rolling');
                     die3.classList.add('settling');
@@ -553,7 +638,7 @@
             }
         }
         
-        // Initialize dice and third die visibility
+        // Initialize dice and die visibility
         document.addEventListener('DOMContentLoaded', () => {
             createDieDots('dots1');
             createDieDots('dots2');
@@ -564,6 +649,7 @@
             updateDieFace('dots2', 1);
             updateDieFace('dots3', 1);
             
+            toggleSeverityDie();
             toggleThirdDie();
         });
     </script>
